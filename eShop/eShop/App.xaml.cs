@@ -13,7 +13,7 @@ namespace eShop
 		{
 			InitializeComponent();
 
-			MainPage = new eShop.MainPage();
+			MainPage = new NavigationPage(new eShop.MainPage());;
 		}
 
 		protected override void OnStart ()

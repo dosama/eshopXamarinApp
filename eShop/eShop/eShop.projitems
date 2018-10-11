@@ -16,8 +16,28 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Constants\AppConstants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LoginViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ViewModelBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\HomePage.xaml.cs">
+      <DependentUpon>HomePage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Webservice\Models\Product.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Webservice\Models\Purshase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Webservice\Models\User.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Webservice\RestService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Webservice\Services\ProductsService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Webservice\Services\PurshasesService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Webservice\Services\UsersService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\HomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

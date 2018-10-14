@@ -1,54 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 using eShop.Views;
+using eShop.Webservice.Models;
 using eShop.Webservice.Services;
 using Xamarin.Forms;
 
 namespace eShop.ViewModels
 {
-    public class HomeViewModel: ViewModelBase
+    public class HomeViewModel : ViewModelBase
     {
-        private readonly UsersService _usersService;
+        private readonly ProductsService _productsService;
+
         public HomeViewModel()
         {
-            _usersService = new UsersService();
-            LoginCommand = new Command(ExecuteLogin, CanExecuteLogin);
+            _productsService = new ProductsService();
+            LoadProductsData();
         }
 
-        private bool CanExecuteLogin()
+        private async void LoadProductsData()
         {
-            return !string.IsNullOrEmpty(UserName);
+            var result = await _productsService.GetAllProducts();
+            if (result != null)
+                Items = new ObservableCollection<Product>(result);
         }
 
-        private async void ExecuteLogin()
+        public HomePage View { get; set; }
+        private ObservableCollection<Product> _items;
+
+        public ObservableCollection<Product> Items
         {
-            if (Regex.IsMatch(UserName, @"^[a-zA-Z0-9 ]*$"))
+            get { return _items; }
+            set
             {
-                var result = await _usersService.GetUserByUserName(UserName);
-                if (result != null)
-                {
-                    await View.Navigation.PushAsync(new HomePage());
-                }
-                else
-                {
-                   await View.DisplayAlert("Error", "User Not Found", "OK");
-                }
+                _items = value;
+                OnPropertyChanged();
             }
-            else
-            {
-                await View.DisplayAlert("Error", "User Name Should not contain Any spaces or Special Characters", "OK");
-            }
-       
         }
-
-
-        public MainPage View { get; set; }
-        public ICommand LoginCommand { get; private set; }
-        private string _userName;
-        public string UserName { get => _userName;
-            set { _userName = value; OnPropertyChanged(); ((Command)LoginCommand).ChangeCanExecute(); } }
     }
 }

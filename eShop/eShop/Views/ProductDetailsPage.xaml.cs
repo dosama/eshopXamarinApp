@@ -13,10 +13,10 @@ namespace eShop.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ProductDetailsPage : ToolBarPage
     {
-		public ProductDetailsPage(string selectedItem)
+		public ProductDetailsPage(Product selectedItem)
 		{
 			InitializeComponent ();
-		    lblWelcome.Text = "Welcome to Product " + selectedItem;
+		    lblWelcome.Text = "Welcome to Product " + selectedItem.Title;
 
 		}
 

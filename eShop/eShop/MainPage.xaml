@@ -7,7 +7,7 @@
              x:Class="eShop.MainPage">
 <StackLayout Orientation="Vertical" VerticalOptions="Center" HorizontalOptions="Center">
     <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-            <Image Source="http://www.habitatriverside.org/wp-content/uploads/2016/10/shopping-cart-icon.png" WidthRequest="25" HeightRequest="25"></Image>
+            <Image Source="icons8_shopping_cart.png" WidthRequest="25" HeightRequest="25"></Image>
         <Label Text="eShop.com" HeightRequest="25"
                />
         </StackLayout>

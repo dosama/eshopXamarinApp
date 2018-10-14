@@ -13,7 +13,12 @@ namespace eShop
 		{
 			InitializeComponent();
 
-			MainPage = new NavigationPage(new eShop.MainPage());;
+			MainPage = new NavigationPage(new eShop.MainPage())
+			{
+			    BarBackgroundColor = Color.LawnGreen,
+                BarTextColor = Color.Black
+            };;
+            
 		}
 
 		protected override void OnStart ()

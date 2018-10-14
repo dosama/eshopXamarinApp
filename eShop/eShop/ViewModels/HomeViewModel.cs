@@ -3,18 +3,16 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
-using eShop.Constants;
-using eShop.Services;
 using eShop.Views;
 using eShop.Webservice.Services;
 using Xamarin.Forms;
 
 namespace eShop.ViewModels
 {
-    public class LoginViewModel: ViewModelBase
+    public class HomeViewModel: ViewModelBase
     {
         private readonly UsersService _usersService;
-        public LoginViewModel()
+        public HomeViewModel()
         {
             _usersService = new UsersService();
             LoginCommand = new Command(ExecuteLogin, CanExecuteLogin);
@@ -32,7 +30,6 @@ namespace eShop.ViewModels
                 var result = await _usersService.GetUserByUserName(UserName);
                 if (result != null)
                 {
-                    AppPersistenceService.SaveValue(AppPropertiesKeys.USER_NAME,result.UserName);
                     await View.Navigation.PushAsync(new HomePage());
                 }
                 else

@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<customControls:ToolBarPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:customControls="clr-namespace:eShop.CustomControls;assembly=eShop.UWP"
+             NavigationPage.HasNavigationBar="true"
+             x:Class="eShop.Views.ProductDetailsPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label x:Name="lblWelcome" 
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+        </StackLayout>
+    </ContentPage.Content>
+</customControls:ToolBarPage>

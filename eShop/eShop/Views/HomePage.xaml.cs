@@ -25,6 +25,7 @@ namespace eShop.Views
             _viewModel.View = this;
         }
 
+         
         async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
         {
             if (e.Item == null)
@@ -36,7 +37,10 @@ namespace eShop.Views
             ((ListView)sender).SelectedItem = null;
         }
 
-     
-
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            _viewModel.LoadProductsData();
+        }
     }
 }

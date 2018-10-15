@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
+using eShop.Constants;
+using eShop.Services;
 using eShop.Views;
 using eShop.Webservice.Models;
 using eShop.Webservice.Services;
@@ -18,14 +21,22 @@ namespace eShop.ViewModels
         public HomeViewModel()
         {
             _productsService = new ProductsService();
-            LoadProductsData();
+       
         }
 
-        private async void LoadProductsData()
+        public async void LoadProductsData()
         {
             var result = await _productsService.GetAllProducts();
             if (result != null)
-                Items = new ObservableCollection<Product>(result);
+            {
+                var minmumPrice = AppPersistenceService.GetValue(AppPropertiesKeys.MINIMUM_FILTER_VALUE) != null ? (double)AppPersistenceService.GetValue(AppPropertiesKeys.MINIMUM_FILTER_VALUE) : 0;
+                var maximumPrice = AppPersistenceService.GetValue(AppPropertiesKeys.MAXIMUM_FILTER_VALUE) != null ? (double)AppPersistenceService.GetValue(AppPropertiesKeys.MAXIMUM_FILTER_VALUE) : 100;
+                var filteredValue = result.Where(p => p.Price >= Convert.ToDecimal(minmumPrice) &&  p.Price <= Convert.ToDecimal(maximumPrice));
+
+                Items = new ObservableCollection<Product>(filteredValue);
+
+            }
+           
         }
 
         public HomePage View { get; set; }

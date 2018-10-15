@@ -7,18 +7,23 @@
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                 <Label Text="Min.Price" Margin="10"
                        HorizontalOptions="Start" />
-                <Label Text="$50" Margin="10"
-                       HorizontalOptions="End" />
+                <StackLayout Orientation="Horizontal"  Margin="10" HorizontalOptions="End" >
+                    <Label Text="$" />
+                    <Label Text="{Binding MinPrice}"/>
+                </StackLayout>
+               
             </StackLayout>
-            <Slider HorizontalOptions="Center" WidthRequest="200"></Slider>
+            <Slider HorizontalOptions="Center" Maximum="100" Minimum="10"  Value="{Binding MinPrice, Mode=TwoWay}" WidthRequest="200"></Slider>
 
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                 <Label Text="Min.Price" Margin="10"
                        HorizontalOptions="Start" />
-                <Label Text="$90" Margin="10"
-                       HorizontalOptions="End" />
+                <StackLayout Orientation="Horizontal"  Margin="10" HorizontalOptions="End" >
+                    <Label Text="$" />
+                    <Label Text="{Binding MaxPrice}"/>
+                </StackLayout>
             </StackLayout>
-            <Slider HorizontalOptions="Center" WidthRequest="200"></Slider>
+            <Slider HorizontalOptions="Center" Maximum="100"  Minimum="10" Value="{Binding MaxPrice, Mode=TwoWay}" WidthRequest="200"></Slider>
             <Button Text="Apply Filter" Clicked="Button_OnClicked" HorizontalOptions="Center"></Button>
 
         </StackLayout>

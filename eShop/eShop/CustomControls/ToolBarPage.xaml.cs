@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using eShop.Constants;
+using eShop.CustomRenders;
 using eShop.Services;
 using eShop.Views;
 using Xamarin.Forms;
@@ -18,6 +19,19 @@ namespace eShop.CustomControls
 		{
 			InitializeComponent ();
 		    Title = AppPersistenceService.GetValue(AppPropertiesKeys.USER_NAME) +"";
+		    var cartItemsCount = AppPersistenceService.GetValue(AppPropertiesKeys.CART_ITEMS_COUNT);
+
+		    if (cartItemsCount != null)
+		    {
+
+		        DependencyService.Get<IToolbarItemBadge>().SetBadge(this, ToolbarItems.First(), $"{(int)cartItemsCount}", Color.Red, Color.White);
+		     
+		    }
+		    else
+		    {
+		        DependencyService.Get<IToolbarItemBadge>().SetBadge(this, ToolbarItems.First(), $"{0}", Color.Red, Color.White);
+		    
+		    }
         }
 
 	    private async void Cart_OnClicked(object sender, EventArgs e)

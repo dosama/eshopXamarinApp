@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
-using Android.Hardware.Display;
 using eShop.Constants;
+using eShop.CustomRenders;
 using eShop.Services;
 using eShop.Views;
 using eShop.Webservice.Models;
@@ -24,14 +25,20 @@ namespace eShop.ViewModels
 
         private async void ExecuteAddToCart()
         {
+
+           
             var cartItemsCount = AppPersistenceService.GetValue(AppPropertiesKeys.CART_ITEMS_COUNT);
 
             if (cartItemsCount != null)
             {
+                
+                DependencyService.Get<IToolbarItemBadge>().SetBadge(View, View.ToolbarItems.First(), $"{(int)cartItemsCount + Quantity}", Color.Red, Color.White);
+                
                 AppPersistenceService.SaveValue(AppPropertiesKeys.CART_ITEMS_COUNT, (int) cartItemsCount + Quantity);
             }
             else
             {
+                DependencyService.Get<IToolbarItemBadge>().SetBadge(View, View.ToolbarItems.First(), $"{Quantity}", Color.Red, Color.White);
                 AppPersistenceService.SaveValue(AppPropertiesKeys.CART_ITEMS_COUNT, Quantity);
             }
 

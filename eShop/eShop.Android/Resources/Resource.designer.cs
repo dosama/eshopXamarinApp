@@ -1927,6 +1927,9 @@ namespace eShop.Droid
 			// aapt resource value: 0x7f07006d
 			public const int notification_top_pad_large_text = 2131165293;
 			
+			// aapt resource value: 0x7f070094
+			public const int textsize_badge_count = 2131165332;
+			
 			static Dimension()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();

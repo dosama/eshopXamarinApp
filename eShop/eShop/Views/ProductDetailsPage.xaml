@@ -5,36 +5,40 @@
              xmlns:forms="clr-namespace:Xamarin.Forms;assembly=Xamarin.Forms.CarouselView"
              NavigationPage.HasNavigationBar="true"
              x:Class="eShop.Views.ProductDetailsPage">
-
-    <StackLayout Orientation="Vertical" Margin="10" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-        <Label  Text="{Binding CurrentProduct.Title}" HorizontalTextAlignment="Start" />
-        <!--<Grid  HorizontalOptions="FillAndExpand"  VerticalOptions="FillAndExpand">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"></RowDefinition>
-            </Grid.RowDefinitions>-->
-        <forms:CarouselView Position="0"  ItemsSource="{Binding CurrentProduct.SlideShowImages}"  MinimumWidthRequest="300" WidthRequest="400" MinimumHeightRequest="300" HeightRequest="400" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"  x:Name="CarouselZoos">
+    <ScrollView>
+        <StackLayout Orientation="Vertical" Margin="10" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <Label  Text="{Binding CurrentProduct.Title}" HorizontalTextAlignment="Start" />
+            <forms:CarouselView Position="0"  ItemsSource="{Binding CurrentProduct.SlideShowImages}"  MinimumWidthRequest="200" WidthRequest="200" MinimumHeightRequest="200" HeightRequest="200" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"  x:Name="CarouselZoos">
                 <forms:CarouselView.ItemTemplate>
                     <DataTemplate>
-                    <Image HeightRequest="300" WidthRequest="300" Margin="10"  Aspect="AspectFit" Source="{Binding .}"/>
+                        <Image HeightRequest="200" WidthRequest="200" Margin="10"  Aspect="AspectFit" Source="{Binding .}"/>
                     </DataTemplate>
                 </forms:CarouselView.ItemTemplate>
             </forms:CarouselView>
-            <!--List of Monkeys below-->
-        <!--</Grid>-->
 
-        <StackLayout Orientation="Horizontal">
-            <Label  Text="$" />
-            <Label  Text="{Binding CurrentProduct.Price}" />
-        </StackLayout>
-        <Label  Text="{Binding CurrentProduct.Description}"
+
+            <StackLayout Orientation="Horizontal">
+                <Label  Text="$" />
+                <Label  Text="{Binding CurrentProduct.Price}" />
+            </StackLayout>
+            <Label  Text="{Binding CurrentProduct.Description}"
                     VerticalOptions="CenterAndExpand" 
                     HorizontalOptions="CenterAndExpand" />
-        <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand">
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Start" Margin="0,0,200,0">
-                <Stepper x:Name="cartstepper" Minimum="1" Maximum="100" Value="{Binding Quantity}" ></Stepper>
-                <Label VerticalOptions="Center" Text="{Binding Quantity}" />
-            </StackLayout>
-            <Button HorizontalOptions="EndAndExpand" VerticalOptions="Center" WidthRequest="150"  Margin="50,0,0,0" Command="{Binding AddToCartCommand}" Text="Add To Cart"></Button>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <StackLayout Grid.Column="1" Orientation="Horizontal" HorizontalOptions="Start" Margin="5"  >
+                    <Stepper x:Name="cartstepper" Minimum="1" Maximum="100" Value="{Binding Quantity}" ></Stepper>
+                    <Label VerticalOptions="Center" Text="{Binding Quantity}" />
+                </StackLayout>
+                <Button  Grid.Column="3" HorizontalOptions="Start" VerticalOptions="Center" MinimumWidthRequest="120" Margin="5" Command="{Binding AddToCartCommand}" Text="Add To Cart"></Button>
+            </Grid>
+
         </StackLayout>
-    </StackLayout>
+    </ScrollView>
+   
 </customControls1:ToolBarPage>

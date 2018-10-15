@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
+using Android.Hardware.Display;
+using eShop.Constants;
+using eShop.Services;
 using eShop.Views;
+using eShop.Webservice.Models;
 using eShop.Webservice.Services;
 using Xamarin.Forms;
 
@@ -11,47 +15,47 @@ namespace eShop.ViewModels
 {
     public class ProductDetailsViewModel : ViewModelBase
     {
-        private readonly UsersService _usersService;
+     
         public ProductDetailsViewModel()
         {
-            _usersService = new UsersService();
-            LoginCommand = new Command(ExecuteLogin, CanExecuteLogin);
+
+            AddToCartCommand = new Command(ExecuteAddToCart);
         }
 
-        private bool CanExecuteLogin()
+        private async void ExecuteAddToCart()
         {
-            return !string.IsNullOrEmpty(UserName);
-        }
+            var cartItemsCount = AppPersistenceService.GetValue(AppPropertiesKeys.CART_ITEMS_COUNT);
 
-        private async void ExecuteLogin()
-        {
-            if (Regex.IsMatch(UserName, @"^[a-zA-Z0-9 ]*$"))
+            if (cartItemsCount != null)
             {
-                var result = await _usersService.GetUserByUserName(UserName);
-                if (result != null)
-                {
-                    await View.Navigation.PushAsync(new HomePage());
-                }
-                else
-                {
-                    await View.DisplayAlert("Error", "User Not Found", "OK");
-                }
+                AppPersistenceService.SaveValue(AppPropertiesKeys.CART_ITEMS_COUNT, (int) cartItemsCount + Quantity);
             }
             else
             {
-                await View.DisplayAlert("Error", "User Name Should not contain Any spaces or Special Characters", "OK");
+                AppPersistenceService.SaveValue(AppPropertiesKeys.CART_ITEMS_COUNT, Quantity);
             }
+
+           await View.Navigation.PushAsync(new HomePage());
+
+           View.DisplayAlert("Success", "Cart Updated Successfully ..", "OK");
 
         }
 
 
-        public MainPage View { get; set; }
-        public ICommand LoginCommand { get; private set; }
-        private string _userName;
-        public string UserName
+        public ProductDetailsPage View { get; set; }
+
+        private int _quantity = 1;
+        public int Quantity
         {
-            get => _userName;
-            set { _userName = value; OnPropertyChanged(); ((Command)LoginCommand).ChangeCanExecute(); }
+            get => _quantity;
+            set { _quantity = value; OnPropertyChanged(); }
+        }
+        public ICommand AddToCartCommand { get; private set; }
+        private Product _currentProduct;
+        public Product CurrentProduct
+        {
+            get => _currentProduct;
+            set { _currentProduct = value; OnPropertyChanged();  }
         }
     }
 }

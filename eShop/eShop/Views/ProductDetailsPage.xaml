@@ -1,14 +1,40 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<customControls:ToolBarPage xmlns="http://xamarin.com/schemas/2014/forms"
+<customControls1:ToolBarPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:customControls="clr-namespace:eShop.CustomControls;assembly=eShop.UWP"
+             xmlns:customControls1="clr-namespace:eShop.CustomControls;assembly=eShop.Android"
+             xmlns:forms="clr-namespace:Xamarin.Forms;assembly=Xamarin.Forms.CarouselView"
              NavigationPage.HasNavigationBar="true"
              x:Class="eShop.Views.ProductDetailsPage">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label x:Name="lblWelcome" 
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+
+    <StackLayout Orientation="Vertical" Margin="10" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <Label  Text="{Binding CurrentProduct.Title}" HorizontalTextAlignment="Start" />
+        <!--<Grid  HorizontalOptions="FillAndExpand"  VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>-->
+        <forms:CarouselView Position="0"  ItemsSource="{Binding CurrentProduct.SlideShowImages}"  MinimumWidthRequest="300" WidthRequest="400" MinimumHeightRequest="300" HeightRequest="400" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"  x:Name="CarouselZoos">
+                <forms:CarouselView.ItemTemplate>
+                    <DataTemplate>
+                    <Image HeightRequest="300" WidthRequest="300" Margin="10"  Aspect="AspectFit" Source="{Binding .}"/>
+                    </DataTemplate>
+                </forms:CarouselView.ItemTemplate>
+            </forms:CarouselView>
+            <!--List of Monkeys below-->
+        <!--</Grid>-->
+
+        <StackLayout Orientation="Horizontal">
+            <Label  Text="$" />
+            <Label  Text="{Binding CurrentProduct.Price}" />
         </StackLayout>
-    </ContentPage.Content>
-</customControls:ToolBarPage>
+        <Label  Text="{Binding CurrentProduct.Description}"
+                    VerticalOptions="CenterAndExpand" 
+                    HorizontalOptions="CenterAndExpand" />
+        <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Start" Margin="0,0,200,0">
+                <Stepper x:Name="cartstepper" Minimum="1" Maximum="100" Value="{Binding Quantity}" ></Stepper>
+                <Label VerticalOptions="Center" Text="{Binding Quantity}" />
+            </StackLayout>
+            <Button HorizontalOptions="EndAndExpand" VerticalOptions="Center" WidthRequest="150"  Margin="50,0,0,0" Command="{Binding AddToCartCommand}" Text="Add To Cart"></Button>
+        </StackLayout>
+    </StackLayout>
+</customControls1:ToolBarPage>

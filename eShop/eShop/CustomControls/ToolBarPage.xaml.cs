@@ -31,10 +31,14 @@ namespace eShop.CustomControls
 	        await Navigation.PushAsync(new HomePage());
         }
 
-	    private void Filter_OnClicked(object sender, EventArgs e)
+	    private async void Filter_OnClicked(object sender, EventArgs e)
 	    {
-	        
-	    }
+	        if (Navigation.NavigationStack.Last().GetType() == typeof(HomePage))
+	        {
+	            await Navigation.PushModalAsync(new FilterPage());
+            }
+	   
+        }
 
 	    private void Sync_OnClicked(object sender, EventArgs e)
 	    {

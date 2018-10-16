@@ -5,7 +5,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 using eShop.Constants;
+using eShop.CustomControls;
 using eShop.CustomRenders;
+using eShop.DBModels;
 using eShop.Services;
 using eShop.Views;
 using eShop.Webservice.Models;
@@ -42,9 +44,24 @@ namespace eShop.ViewModels
                 AppPersistenceService.SaveValue(AppPropertiesKeys.CART_ITEMS_COUNT, Quantity);
             }
 
-           await View.Navigation.PushAsync(new HomePage());
+            var connection = DependencyService.Get<ISQLiteDb>().GetConnection();
+            await connection.CreateTableAsync<CartModel>();
 
-           View.DisplayAlert("Success", "Cart Updated Successfully ..", "OK");
+            var cartItem = await connection.Table<CartModel>()
+                .FirstOrDefaultAsync(x => x.ProductId == CurrentProduct.ProductId);
+            if (cartItem == null)
+                await connection.InsertAsync(new CartModel() { ProductId = CurrentProduct.ProductId , Price = CurrentProduct.Price,ProductTitle = CurrentProduct.Title,Quantity = Quantity });
+            else
+            {
+                cartItem.Quantity += Quantity;
+                await connection.UpdateAsync(cartItem);
+            }
+
+            await View.Navigation.PushAsync(new HomePage());
+
+            DependencyService.Get<IToastMessage>().Show("Cart Updated Successfully ..");
+
+       
 
         }
 

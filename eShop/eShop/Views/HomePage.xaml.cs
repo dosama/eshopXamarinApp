@@ -37,6 +37,8 @@ namespace eShop.Views
             ((ListView)sender).SelectedItem = null;
         }
 
+   
+
         protected override void OnAppearing()
         {
             base.OnAppearing();

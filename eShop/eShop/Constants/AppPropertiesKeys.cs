@@ -10,5 +10,6 @@ namespace eShop.Constants
         public const string CART_ITEMS_COUNT = "CartItemsCount";
         public const string MINIMUM_FILTER_VALUE = "MinimumFilterValue";
         public const string MAXIMUM_FILTER_VALUE = "MaximumFilerValue";
+        public const string IS_ONLINE = "IsOnline";
     }
 }

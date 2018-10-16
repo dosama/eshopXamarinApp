@@ -18,15 +18,22 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Constants\AppConstants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Constants\AppPropertiesKeys.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CustomRenders\IToastMessage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CustomControls\ToolBarPage.xaml.cs">
       <DependentUpon>ToolBarPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)CustomRenders\IToolbarItemBadge.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DBModels\CartModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DBModels\ProductImagesModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DBModels\ProductModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DBModels\UserModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Services\AppPersistenceService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\ISQLiteDb.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\SyncDataService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\HomeViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LoginViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ProductDetailsViewModel.cs" />
@@ -84,5 +91,8 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)CustomControls\" />
   </ItemGroup>
 </Project>

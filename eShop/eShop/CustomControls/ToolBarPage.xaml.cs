@@ -7,6 +7,8 @@ using eShop.Constants;
 using eShop.CustomRenders;
 using eShop.Services;
 using eShop.Views;
+using Plugin.Connectivity;
+using Plugin.Connectivity.Abstractions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -15,6 +17,7 @@ namespace eShop.CustomControls
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ToolBarPage : ContentPage
 	{
+        
 		public ToolBarPage ()
 		{
 			InitializeComponent ();
@@ -32,9 +35,22 @@ namespace eShop.CustomControls
 		        DependencyService.Get<IToolbarItemBadge>().SetBadge(this, ToolbarItems.First(), $"{0}", Color.Red, Color.White);
 		    
 		    }
+
+		    CrossConnectivity.Current.ConnectivityChanged += Current_ConnectivityChanged;
         }
 
-	    private async void Cart_OnClicked(object sender, EventArgs e)
+	    private async void Current_ConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
+	    {
+	        AppPersistenceService.SaveValue(AppPropertiesKeys.IS_ONLINE, e.IsConnected);
+	        if (e.IsConnected)
+	        {
+	            await StartSyncProcess();
+	        }
+	    }
+
+	
+
+        private async void Cart_OnClicked(object sender, EventArgs e)
 	    {
 	        await Navigation.PushAsync(new CartPage());
 
@@ -54,12 +70,19 @@ namespace eShop.CustomControls
 	   
         }
 
-	    private void Sync_OnClicked(object sender, EventArgs e)
+	    private async void Sync_OnClicked(object sender, EventArgs e)
 	    {
-	    
+
+	       await StartSyncProcess();
 	    }
 
-	    private async void Logout_OnClicked(object sender, EventArgs e)
+	    public async Task StartSyncProcess()
+	    {
+	        await SyncDataService.Instance.SyncProductsData();
+        }
+
+
+        private async void Logout_OnClicked(object sender, EventArgs e)
 	    {
 	        AppPersistenceService.SaveValue(AppPropertiesKeys.USER_NAME, string.Empty);
             await Navigation.PushAsync(new MainPage());

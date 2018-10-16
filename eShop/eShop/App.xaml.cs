@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using eShop.Constants;
+using eShop.CustomControls;
+using eShop.Services;
+using Plugin.Connectivity;
+using Plugin.Connectivity.Abstractions;
 using Xamarin.Forms;
 
 namespace eShop
@@ -18,10 +22,22 @@ namespace eShop
 			    BarBackgroundColor = Color.LawnGreen,
                 BarTextColor = Color.Black
             };;
-            
-		}
 
-		protected override void OnStart ()
+		    CrossConnectivity.Current.ConnectivityChanged += Current_ConnectivityChanged;
+
+        }
+
+	    private async void Current_ConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
+	    {
+	        AppPersistenceService.SaveValue(AppPropertiesKeys.IS_ONLINE, e.IsConnected);
+	        if (!e.IsConnected)
+	        {
+	            DependencyService.Get<IToastMessage>().Show("You Are Offline Now .. Please turn on internet Connectivity");
+            }
+
+
+	    }
+        protected override void OnStart ()
 		{
 			// Handle when your app starts
 		}

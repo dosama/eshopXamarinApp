@@ -4,34 +4,43 @@
              xmlns:customControls="clr-namespace:eShop.CustomControls;assembly=eShop.Android"
              x:Class="eShop.Views.HomePage">
 
+    <AbsoluteLayout>
+        <ActivityIndicator IsRunning="{Binding  IsViewLoading}" IsEnabled="{Binding IsViewLoading}" IsVisible="{Binding IsViewLoading}"  HeightRequest="50" Color="Gray"  AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.5,0.5,100,100"/>
+        <ListView x:Name="MyListView" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1"
+                  ItemsSource="{Binding Items}"
+                  ItemTapped="Handle_ItemTapped"
+                  HasUnevenRows="True"
+                  CachingStrategy="RecycleElement">
 
-    <ListView x:Name="MyListView"
-            ItemsSource="{Binding Items}"
-            ItemTapped="Handle_ItemTapped"
-              HasUnevenRows="True"
-            CachingStrategy="RecycleElement">
-            
-    <!--Built in Cells-->
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <ViewCell>
-                    <StackLayout Orientation="Horizontal" Padding="5">
-                        <Image WidthRequest="100" HeightRequest="100" Source="{Binding MainImageUrl}"/>
-                        <StackLayout Orientation="Vertical" HorizontalOptions="StartAndExpand">
-                            <Label Text = "{Binding Title}" FontSize="24" />
-                            <Label Text = "{Binding Description}" LineBreakMode="TailTruncation"/>
-                            <StackLayout Orientation="Horizontal">
-                                <Label Text = "{Binding Price}" />
-                                <Label Text = "$" />
+            <!--Built in Cells-->
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal" Padding="5">
+                            <Image WidthRequest="100" HeightRequest="100" Source="{Binding MainImageUrl}"/>
+                            <StackLayout Orientation="Vertical" HorizontalOptions="StartAndExpand">
+                                <Label Text = "{Binding Title}" FontSize="24" />
+                                <Label Text = "{Binding Description}" LineBreakMode="TailTruncation"/>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text = "{Binding Price}" />
+                                    <Label Text = "$" />
+                                </StackLayout>
                             </StackLayout>
-                        </StackLayout>
 
-                    </StackLayout>
-                </ViewCell>
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </AbsoluteLayout>
+
+       
+
 </customControls:ToolBarPage>
+
+
+
+
 
 
 

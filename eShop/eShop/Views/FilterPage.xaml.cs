@@ -26,7 +26,7 @@ namespace eShop.Views
 	    {
 	        base.OnAppearing();
 	        MinPrice = AppPersistenceService.GetValue(AppPropertiesKeys.MINIMUM_FILTER_VALUE) != null ? (double)AppPersistenceService.GetValue(AppPropertiesKeys.MINIMUM_FILTER_VALUE) : 10;
-	        MaxPrice = AppPersistenceService.GetValue(AppPropertiesKeys.MAXIMUM_FILTER_VALUE) != null ? (double)AppPersistenceService.GetValue(AppPropertiesKeys.MAXIMUM_FILTER_VALUE) : 10;
+	        MaxPrice = AppPersistenceService.GetValue(AppPropertiesKeys.MAXIMUM_FILTER_VALUE) != null ? (double)AppPersistenceService.GetValue(AppPropertiesKeys.MAXIMUM_FILTER_VALUE) : 100;
 
         }
 	    protected void setValue<T>(ref T backingField, T value, [CallerMemberName] string propertyName = null)

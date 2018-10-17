@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Input;
 using eShop.Constants;
 using eShop.CustomControls;
+using eShop.CustomRenders;
 using eShop.DBModels;
 using eShop.Services;
 using eShop.Views;
@@ -22,8 +23,10 @@ namespace eShop.ViewModels
     {
         public async void LoadProductsData()
         {
+
+
             IsViewLoading = true;
-            
+          
 
             var result = await SyncDataService.Instance.SyncProductsData();
             var minmumPrice = AppPersistenceService.GetValue(AppPropertiesKeys.MINIMUM_FILTER_VALUE) != null ? (double)AppPersistenceService.GetValue(AppPropertiesKeys.MINIMUM_FILTER_VALUE) : 0;

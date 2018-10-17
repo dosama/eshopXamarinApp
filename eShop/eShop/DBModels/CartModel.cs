@@ -12,6 +12,7 @@ namespace eShop.DBModels
         public int Id { get; set; }
         public Guid ProductId { get; set; }
         public string ProductTitle { get; set; }
+        public string ProductImageUrl { get; set; }
         public decimal Price { get; set; }
         public int Quantity { get; set; }
     }

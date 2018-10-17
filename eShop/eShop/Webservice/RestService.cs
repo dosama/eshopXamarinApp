@@ -65,7 +65,7 @@ namespace eShop.Webservice
             return null;
         }
 
-        public async Task SaveTodoItemAsync<T>(T item, bool isNewItem = false)
+        public async Task SaveDataAsync<T>(T item, bool isNewItem = false)
         {
             var restUrl = AppConstants.WEBSERVICE_URL + ServiceName;
             var uri = new Uri(string.Format(restUrl, string.Empty));
@@ -96,7 +96,7 @@ namespace eShop.Webservice
             }
         }
 
-        public async Task DeleteTodoItemAsync(string id)
+        public async Task DeleteDataAsync(string id)
         {
             var restUrl = AppConstants.WEBSERVICE_URL + ServiceName;
             var uri = new Uri(string.Format(restUrl, string.Empty));

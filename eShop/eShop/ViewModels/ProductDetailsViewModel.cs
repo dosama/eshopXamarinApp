@@ -50,7 +50,7 @@ namespace eShop.ViewModels
             var cartItem = await connection.Table<CartModel>()
                 .FirstOrDefaultAsync(x => x.ProductId == CurrentProduct.ProductId);
             if (cartItem == null)
-                await connection.InsertAsync(new CartModel() { ProductId = CurrentProduct.ProductId , Price = CurrentProduct.Price,ProductTitle = CurrentProduct.Title,Quantity = Quantity });
+                await connection.InsertAsync(new CartModel() { ProductId = CurrentProduct.ProductId , Price = CurrentProduct.Price,ProductImageUrl = CurrentProduct.MainImageUrl,ProductTitle = CurrentProduct.Title,Quantity = Quantity });
             else
             {
                 cartItem.Quantity += Quantity;

@@ -26,7 +26,7 @@ namespace eShop.Services
         public async Task<List<Product>> SyncProductsData()
         {
             List<Product> result = new List<Product>();
-            DependencyService.Get<IToastMessage>().Show("App Data Sync is starting ..");
+           
             try
             {
                 var connection = DependencyService.Get<ISQLiteDb>().GetConnection();
@@ -81,12 +81,11 @@ namespace eShop.Services
 
                 }
 
-                DependencyService.Get<IToastMessage>().Show("App Data Sync Done ..");
+           
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                DependencyService.Get<IToastMessage>().Show("Error while App Data Sync ..");
             }
 
             return result;

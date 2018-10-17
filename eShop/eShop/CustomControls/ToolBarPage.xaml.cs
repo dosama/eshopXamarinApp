@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using eShop.Constants;
 using eShop.CustomRenders;
+using eShop.DBModels;
 using eShop.Services;
 using eShop.Views;
 using Plugin.Connectivity;
@@ -21,22 +22,32 @@ namespace eShop.CustomControls
 		public ToolBarPage ()
 		{
 			InitializeComponent ();
-		    Title = AppPersistenceService.GetValue(AppPropertiesKeys.USER_NAME) +"";
-		    var cartItemsCount = AppPersistenceService.GetValue(AppPropertiesKeys.CART_ITEMS_COUNT);
+		   
+        }
 
-		    if (cartItemsCount != null)
-		    {
+	    protected async override void OnAppearing()
+	    {
+	        base.OnAppearing();
 
-		        DependencyService.Get<IToolbarItemBadge>().SetBadge(this, ToolbarItems.First(), $"{(int)cartItemsCount}", Color.Red, Color.White);
-		     
-		    }
-		    else
-		    {
-		        DependencyService.Get<IToolbarItemBadge>().SetBadge(this, ToolbarItems.First(), $"{0}", Color.Red, Color.White);
-		    
-		    }
+	        Title = AppPersistenceService.GetValue(AppPropertiesKeys.USER_NAME) + "";
+	        var cartItemsCount = AppPersistenceService.GetValue(AppPropertiesKeys.CART_ITEMS_COUNT);
 
-		    CrossConnectivity.Current.ConnectivityChanged += Current_ConnectivityChanged;
+	        if (cartItemsCount != null)
+	        {
+
+	            DependencyService.Get<IToolbarItemBadge>().SetBadge(this, ToolbarItems.First(), $"{(int)cartItemsCount}", Color.Red, Color.White);
+
+	        }
+	        else
+	        {
+	            var connection = DependencyService.Get<ISQLiteDb>().GetConnection();
+	            var cartItems = await connection.Table<CartModel>().ToListAsync();
+	            AppPersistenceService.SaveValue(AppPropertiesKeys.CART_ITEMS_COUNT, cartItems.Count);
+	            DependencyService.Get<IToolbarItemBadge>().SetBadge(this, ToolbarItems.First(), $"{cartItems.Count}", Color.Red, Color.White);
+
+	        }
+
+	        CrossConnectivity.Current.ConnectivityChanged += Current_ConnectivityChanged;
         }
 
 	    private async void Current_ConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
@@ -78,7 +89,9 @@ namespace eShop.CustomControls
 
 	    public async Task StartSyncProcess()
 	    {
-	        await SyncDataService.Instance.SyncProductsData();
+	        DependencyService.Get<IToastMessage>().Show("App Data Sync is starting ..");
+            await SyncDataService.Instance.SyncProductsData();
+	        DependencyService.Get<IToastMessage>().Show("App Data Sync Done ..");
         }
 
 

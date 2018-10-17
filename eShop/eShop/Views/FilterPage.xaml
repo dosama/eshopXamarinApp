@@ -16,7 +16,7 @@
             <Slider HorizontalOptions="Center" Maximum="100" Minimum="10"  Value="{Binding MinPrice, Mode=TwoWay}" WidthRequest="200"></Slider>
 
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                <Label Text="Min.Price" Margin="10"
+                <Label Text="Max.Price" Margin="10"
                        HorizontalOptions="Start" />
                 <StackLayout Orientation="Horizontal"  Margin="10" HorizontalOptions="End" >
                     <Label Text="$" />

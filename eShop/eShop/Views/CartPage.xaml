@@ -1,48 +1,76 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<customControls:ToolBarPage xmlns="http://xamarin.com/schemas/2014/forms"
+<customControls1:ToolBarPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:customControls="clr-namespace:eShop.CustomControls;assembly=eShop.Android"
+             xmlns:customControls1="clr-namespace:eShop.CustomControls;assembly=eShop.UWP"
              x:Class="eShop.Views.CartPage">
-    <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
-        <Grid HeightRequest="70">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Label Grid.Column="1" HeightRequest="23" Text="Price" HorizontalOptions="Center"></Label>
-            <Label  Grid.Column="2" HeightRequest="23" Text="Quantity" HorizontalOptions="Center"></Label>
-        </Grid>
-        <ListView x:Name="MyListView"
-                  ItemsSource="{Binding Items}"
-                  ItemTapped="Handle_ItemTapped"
+    <AbsoluteLayout>
+        <ActivityIndicator IsRunning="{Binding  IsViewLoading}" IsEnabled="{Binding IsViewLoading}" IsVisible="{Binding IsViewLoading}"  HeightRequest="50" Color="Gray"  AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.5,0.5,100,100"/>
+        <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand"  AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+            <Grid HeightRequest="30"  IsVisible="{Binding IsSubmitEnabled}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="2" HeightRequest="23" Text="Price" HorizontalOptions="Center"></Label>
+                <Label  Grid.Column="3" HeightRequest="23" Text="Quantity" HorizontalOptions="Center"></Label>
+            </Grid>
+            <ListView x:Name="MyListView" IsVisible="{Binding IsSubmitEnabled}" 
+                  ItemsSource="{Binding Items}" HasUnevenRows="True"
                   CachingStrategy="RecycleElement">
 
-            <!--Built in Cells-->
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <TextCell Text="{Binding .}" />
-                </DataTemplate>
-            </ListView.ItemTemplate>
+                <!--Built in Cells-->
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Delete" IsDestructive="True" Clicked="MenuItem_OnClicked" CommandParameter="{Binding Id}"></MenuItem>
+                            </ViewCell.ContextActions>
+                            <Grid >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Image WidthRequest="50"  Grid.Column="0" HeightRequest="50" Source="{Binding ProductImageUrl}"/>
+                                <StackLayout  Grid.Column="1" Orientation="Vertical" HorizontalOptions="StartAndExpand">
+                                    <Label Text = "{Binding ProductTitle}" FontSize="12" />
+                                    <Label Text = "In Stock" LineBreakMode="TailTruncation"/>
 
-            <!--Custom View Cells-->
-            <!--
-    <ListView.ItemTemplate>
-      <DataTemplate>
-        <ViewCell>
-          <StackLayout>
-            <Label Text="{Binding Text}" 
-                   Style="{DynamicResource ListItemTextStyle}" />
-            <Label Text="{Binding Detail}" 
-                   Style="{DynamicResource ListItemDetailTextStyle}"/>
-          </StackLayout>
-        </ViewCell>
-      </DataTemplate>
-    </ListView.ItemTemplate>
-    -->
-        </ListView>
-        <Button Text="Submit" HorizontalOptions="End" WidthRequest="150" HeightRequest="60" Margin="10"></Button>
-    </StackLayout>
+                                </StackLayout>
+                                <StackLayout  Grid.Column="2" Orientation="Horizontal"  HorizontalOptions="Center">
+                                    <Label HeightRequest="23" FontSize="12"  Text="$"></Label>
+                                    <Label HeightRequest="23" FontSize="12"  Text="{Binding Price}"></Label>
+                                </StackLayout>
+                                <Label  Grid.Column="3" HeightRequest="23" Text="{Binding Quantity}" HorizontalOptions="Center"></Label>
+                            </Grid>
+
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Label Text="Cart Is Empty" IsVisible="{Binding IsSubmitDisabled}" FontSize="24" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Label>
+            <Button Text="Submit" HorizontalOptions="End" WidthRequest="150" IsEnabled="{Binding IsSubmitEnabled}" Command="{Binding SubmitCommand}" HeightRequest="60" Margin="10"></Button>
+        </StackLayout>
+    </AbsoluteLayout>
+    
   
-</customControls:ToolBarPage>
+  
+</customControls1:ToolBarPage>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

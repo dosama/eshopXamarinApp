@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 using eShop.Constants;
+using eShop.CustomControls;
 using eShop.DBModels;
 using eShop.Services;
 using eShop.Views;
@@ -49,7 +50,11 @@ namespace eShop.ViewModels
                             await connection.InsertAsync(new UserModel() { UserId = result.UserId, UserName = result.UserName });
 
                             AppPersistenceService.SaveValue(AppPropertiesKeys.USER_NAME, result.UserName);
+                            AppPersistenceService.SaveValue(AppPropertiesKeys.USER_ID, result.UserId);
                             await View.Navigation.PushAsync(new HomePage());
+                            DependencyService.Get<IToastMessage>().Show("App Data Sync is starting ..");
+                            await SyncDataService.Instance.SyncProductsData();
+                            DependencyService.Get<IToastMessage>().Show("App Data Sync Done ..");
                         }
                         else
                         {

@@ -52,7 +52,7 @@
                 </ListView.ItemTemplate>
             </ListView>
             <Label Text="Cart Is Empty" IsVisible="{Binding IsSubmitDisabled}" FontSize="24" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Label>
-            <Button Text="Submit" HorizontalOptions="End" WidthRequest="150" IsEnabled="{Binding IsSubmitEnabled}" Command="{Binding SubmitCommand}" HeightRequest="60" Margin="10"></Button>
+            <Button Text="Submit" HorizontalOptions="End" WidthRequest="150" IsEnabled="{Binding IsSubmitEnabled}" Command="{Binding SubmitCommand}"  BackgroundColor="LawnGreen" Margin="10"></Button>
         </StackLayout>
     </AbsoluteLayout>
     

@@ -5,14 +5,14 @@
              NavigationPage.HasNavigationBar="false"
              BackgroundColor="LawnGreen"
              x:Class="eShop.MainPage">
-<StackLayout Orientation="Vertical" VerticalOptions="Center" HorizontalOptions="Center">
+<StackLayout Orientation="Vertical" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" >
     <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
             <Image Source="icons8_shopping_cart.png" WidthRequest="25" HeightRequest="25"></Image>
         <Label Text="eShop.com" HeightRequest="25"
                />
         </StackLayout>
-        <Entry Placeholder="Enter Username .." Text="{Binding UserName , Mode=TwoWay}"></Entry>
-        <Button Text="Login" BackgroundColor="Yellow" Command="{Binding LoginCommand}"></Button>
+        <Entry Placeholder="Enter Username .."  HorizontalOptions="CenterAndExpand" Text="{Binding UserName , Mode=TwoWay}"></Entry>
+        <Button Text="Login" BackgroundColor="Yellow" HorizontalOptions="CenterAndExpand"  Command="{Binding LoginCommand}"></Button>
     
 </StackLayout>
 	

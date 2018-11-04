@@ -35,7 +35,13 @@
                     <Stepper x:Name="cartstepper" Minimum="1" Maximum="100" Value="{Binding Quantity}" ></Stepper>
                     <Label VerticalOptions="Center" Text="{Binding Quantity}" />
                 </StackLayout>
-                <Button  Grid.Column="3" HorizontalOptions="Start" VerticalOptions="Center" BackgroundColor="LawnGreen" MinimumWidthRequest="120" Margin="5" Command="{Binding AddToCartCommand}" Text="Add To Cart"></Button>
+                <Button  Grid.Column="3" HorizontalOptions="Start" VerticalOptions="Center" BackgroundColor="LawnGreen" MinimumWidthRequest="120" Margin="5" Command="{Binding AddToCartCommand}" Text="Add To Cart">
+                    <Button.WidthRequest>
+                        <OnPlatform x:TypeArguments="x:Double">
+                            <On Platform="iOS">100</On>
+                        </OnPlatform>
+                    </Button.WidthRequest>
+                </Button>
             </Grid>
 
         </StackLayout>

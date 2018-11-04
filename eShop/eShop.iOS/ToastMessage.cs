@@ -16,8 +16,6 @@ namespace eShop.iOS
 
         const double LONG_DELAY = 3.5;
 
-
-        NSTimer alertDelay;
         UIAlertController alert;
 
         public void Show(string message)
@@ -28,23 +26,26 @@ namespace eShop.iOS
 
         void ShowAlert(string message, double seconds)
         {
-            alertDelay = NSTimer.CreateScheduledTimer(seconds, (obj) =>
-            {
-                dismissMessage();
-            });
             alert = UIAlertController.Create(null, message, UIAlertControllerStyle.Alert);
             UIApplication.SharedApplication.KeyWindow.RootViewController.PresentViewController(alert, true, null);
-        }
-        void dismissMessage()
-        {
-            if (alert != null)
+
+            NSTimer.CreateScheduledTimer(seconds, (obj) =>
             {
-                alert.DismissViewController(true, null);
-            }
-            if (alertDelay != null)
-            {
-                alertDelay.Dispose();
-            }
+                if (alert != null)
+                {
+                    UIApplication.SharedApplication.KeyWindow.RootViewController.DismissViewController(true, () =>
+                    {
+                        alert.DismissViewController(true, null);
+                        alert.Dispose();
+
+                        obj?.Dispose();
+                    });
+
+
+                }
+            });
+            
         }
+
     }
 }

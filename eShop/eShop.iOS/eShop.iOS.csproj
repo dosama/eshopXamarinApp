@@ -138,6 +138,9 @@
       <Version>2.3.0-pre2</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\icons8_shopping_cart.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\eShop\eShop.projitems" Label="Shared" />
 </Project>

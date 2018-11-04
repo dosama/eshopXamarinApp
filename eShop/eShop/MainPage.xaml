@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:eShop"
+             xmlns:system="clr-namespace:System;assembly=System.Runtime"
              NavigationPage.HasNavigationBar="false"
              BackgroundColor="LawnGreen"
              x:Class="eShop.MainPage">
@@ -12,9 +13,16 @@
                />
         </StackLayout>
         <Entry Placeholder="Enter Username .."  HorizontalOptions="CenterAndExpand" Text="{Binding UserName , Mode=TwoWay}"></Entry>
-        <Button Text="Login" BackgroundColor="Yellow" HorizontalOptions="CenterAndExpand"  Command="{Binding LoginCommand}"></Button>
+        <Button Text="Login" BackgroundColor="Yellow" HorizontalOptions="CenterAndExpand"  Command="{Binding LoginCommand}">
+            <Button.WidthRequest>
+                <OnPlatform x:TypeArguments="x:Double">
+                    <On Platform="iOS">100</On>
+                </OnPlatform>
+            </Button.WidthRequest>
+        </Button>
     
 </StackLayout>
 	
 
 </ContentPage>
+

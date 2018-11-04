@@ -81,7 +81,7 @@ namespace eShop.iOS.Util
 
 
             var height = badgeSize.Height;
-            var width = badgeSize.Width + 2; /* padding */
+            var width = badgeSize.Width; /* padding */
 
             //make sure we have at least a circle
             if (width < height)
@@ -90,7 +90,7 @@ namespace eShop.iOS.Util
             }
 
             //x position is offset from right-hand side
-            var x = view.Frame.Width - width + offset.X;
+            var x = view.Frame.Width - (offset.X *3 + width * 3);
 
 
             var badgeFrame = new CGRect(new CGPoint(x: x, y: offset.Y), size: new CGSize(width: width, height: height));

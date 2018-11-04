@@ -9,7 +9,7 @@
                        HorizontalOptions="Start" />
                 <StackLayout Orientation="Horizontal"  Margin="10" HorizontalOptions="End" >
                     <Label Text="$" />
-                    <Label Text="{Binding MinPrice}"/>
+                    <Label Text="{Binding Path=MinPrice , StringFormat='{0:N0}'}"/>
                 </StackLayout>
                
             </StackLayout>
@@ -20,7 +20,7 @@
                        HorizontalOptions="Start" />
                 <StackLayout Orientation="Horizontal"  Margin="10" HorizontalOptions="End" >
                     <Label Text="$" />
-                    <Label Text="{Binding MaxPrice}"/>
+                    <Label Text="{Binding Path=MaxPrice, StringFormat='{0:N0}'}"/>
                 </StackLayout>
             </StackLayout>
             <Slider HorizontalOptions="Center" Maximum="100"  Minimum="10" Value="{Binding MaxPrice, Mode=TwoWay}" WidthRequest="200"></Slider>

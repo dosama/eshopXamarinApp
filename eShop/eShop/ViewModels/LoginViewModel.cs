@@ -33,20 +33,20 @@ namespace eShop.ViewModels
         {
             try
             {
-
-                if (Regex.IsMatch(UserName, @"^[a-zA-Z0-9 ]*$"))
+                var userName = UserName?.ToLower();
+                if (Regex.IsMatch(userName, @"^[a-zA-Z0-9 ]*$"))
                 {
                     var connection = DependencyService.Get<ISQLiteDb>().GetConnection();
 
                     if (CrossConnectivity.Current.IsConnected)
                     {
-                        var result = await _usersService.GetUserByUserName(UserName);
+                        var result = await _usersService.GetUserByUserName(userName);
                         if (result != null)
                         {
 
                             await connection.CreateTableAsync<UserModel>();
 
-                            if(await connection.Table<UserModel>().FirstOrDefaultAsync(x=>x.UserName == UserName) == null)
+                            if(await connection.Table<UserModel>().FirstOrDefaultAsync(x=>x.UserName == userName) == null)
                             await connection.InsertAsync(new UserModel() { UserId = result.UserId, UserName = result.UserName });
 
                             AppPersistenceService.SaveValue(AppPropertiesKeys.USER_NAME, result.UserName);
@@ -64,7 +64,7 @@ namespace eShop.ViewModels
                     else
                     {
                         var users = await connection.Table<UserModel>().ToListAsync();
-                        var result = users.FirstOrDefault(u => u.UserName == UserName);
+                        var result = users.FirstOrDefault(u => u.UserName == userName);
                         if (result != null)
                         {
                             AppPersistenceService.SaveValue(AppPropertiesKeys.USER_NAME, result.UserName);

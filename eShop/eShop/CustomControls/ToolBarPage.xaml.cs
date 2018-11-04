@@ -41,7 +41,8 @@ namespace eShop.CustomControls
 	        else
 	        {
 	            var connection = DependencyService.Get<ISQLiteDb>().GetConnection();
-	            var cartItems = await connection.Table<CartModel>().ToListAsync();
+	            await connection.CreateTableAsync<CartModel>();
+                var cartItems = await connection.Table<CartModel>().ToListAsync();
 	            AppPersistenceService.SaveValue(AppPropertiesKeys.CART_ITEMS_COUNT, cartItems.Count);
 	            DependencyService.Get<IToolbarItemBadge>().SetBadge(this, ToolbarItems.First(), $"{cartItems.Count}", Color.Red, Color.White);
 

@@ -6,6 +6,6 @@ namespace eShop.Constants
 {
     public static class AppConstants
     {
-        public const string WEBSERVICE_URL = "http://10.0.3.2:1113/api/";
+        public const string WEBSERVICE_URL = "http://eshopservice.azurewebsites.net/api/";
     }
 }
